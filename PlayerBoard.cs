@@ -55,81 +55,140 @@ namespace Othello
                     if(splayerboard[i, j] == "B")
                     {
                         CreateBoardCheck(i, j);
-
                     }
                 }
             }
 
+            while(stackBoardChecks.Count > 0)
+            {                
+                BoardCheck bc;
+                bc = stackBoardChecks.Pop();
+                GoBoardCheck(bc.x, bc.y, bc);
+            }
 
             System.Console.WriteLine("TEST");
+
         }
 
-        //
-        void CreateBoardCheck(int i , int j)
+        //스택 쌓기 
+        void CreateBoardCheck(int x , int y)
         {
-            if (splayerboard[i - 1, j - 1] == "W")
+            if (splayerboard[x - 1, y - 1] == "W")
             {
                 //↖ 
                 BoardCheck bc = new BoardCheck();
-                bc.init(i - 1, j - 1, 1, "LEFT_UP");
+                bc.init(x - 1, y - 1, 1, "LEFT_UP");
                 stackBoardChecks.Push(bc);
             }
-            if (splayerboard[i, j - 1] == "W")
+            if (splayerboard[x, y - 1] == "W")
             {
                 //←
                 BoardCheck bc = new BoardCheck();
-                bc.init(i, j - 1, 1, "LEFT");
+                bc.init(x, y - 1, 1, "LEFT");
                 stackBoardChecks.Push(bc);
 
             }
-            if (splayerboard[i + 1, j - 1] == "W")
+            if (splayerboard[x + 1, y - 1] == "W")
             {
                 //↙
                 BoardCheck bc = new BoardCheck();
-                bc.init(i, j - 1, 1, "LEFT_DOWN");
+                bc.init(x, y - 1, 1, "LEFT_DOWN");
                 stackBoardChecks.Push(bc);
             }
-            if (splayerboard[i - 1, j] == "W")
+            if (splayerboard[x - 1, y] == "W")
             {
                 //↑
                 BoardCheck bc = new BoardCheck();
-                bc.init(i, j - 1, 1, "UP");
+                bc.init(x, y - 1, 1, "UP");
                 stackBoardChecks.Push(bc);
 
             }
-            if (splayerboard[i + 1, j] == "W")
+            if (splayerboard[x + 1, y] == "W")
             {
                 //↓
                 BoardCheck bc = new BoardCheck();
-                bc.init(i, j - 1, 1, "DOWN");
+                bc.init(x, y - 1, 1, "DOWN");
                 stackBoardChecks.Push(bc);
 
             }
-            if (splayerboard[i - 1, j + 1] == "W")
+            if (splayerboard[x - 1, y + 1] == "W")
             {
                 //↗
                 BoardCheck bc = new BoardCheck();
-                bc.init(i, j - 1, 1, "RIGHT_UP");
+                bc.init(x, y - 1, 1, "RIGHT_UP");
                 stackBoardChecks.Push(bc);
 
             }
-            if (splayerboard[i, j + 1] == "W")
+            if (splayerboard[x, y + 1] == "W")
             {
                 //→
                 BoardCheck bc = new BoardCheck();
-                bc.init(i, j - 1, 1, "RIGHT");
+                bc.init(x, y - 1, 1, "RIGHT");
                 stackBoardChecks.Push(bc);
 
             }
-            if (splayerboard[i + 1, j + 1] == "W")
+            if (splayerboard[x + 1, y + 1] == "W")
             {
                 //↘
                 BoardCheck bc = new BoardCheck();
-                bc.init(i, j - 1, 1, "RIGHT_DOWN");
+                bc.init(x, y - 1, 1, "RIGHT_DOWN");
                 stackBoardChecks.Push(bc);
 
             }
         }
+
+        //정해진 방향에 하얀돌이 있는가?
+        public void GoBoardCheck(int x , int y , BoardCheck bch)
+        {
+            switch (bch.voctor)
+            {
+                case "LEFT_UP" :
+
+                    if (splayerboard[x - 1, y - 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(x - 1, y - 1, bc.count++, "LEFT_UP");
+                        stackBoardChecks.Push(bc);
+                    }
+                    else if(splayerboard[x - 1, y - 1] == "B")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        splayerboard[x - 1, y - 1] = Convert.ToString(bch.count);
+                    }
+                       
+                    break;
+
+                case "LEFT":
+                    break;
+
+                case "LEFT_DOWN":
+                    break;
+
+                case "UP":
+                    break;
+
+                case "DOWN":
+                    break;
+
+                case "RIGHT_UP":
+                    break;
+
+                case "RIGHT":
+                    break;
+
+                case "RIGHT_DOWN":
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+
 
 
         //돌이 뒤집어짐

@@ -10,10 +10,10 @@ namespace Othello
     {
         
 
-        int x = 0;
-        int y = 0;
-        String voctor;
-        int count = 0;
+        public int x = 0;
+        public int y = 0;
+        public String voctor;
+        public int count = 0;
 
         public void init( int x , int y , int count ,String voctor)
         {
