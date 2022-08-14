@@ -64,6 +64,7 @@ namespace Othello
             System.Console.WriteLine("TEST");
         }
 
+        //
         void CreateBoardCheck(int i , int j)
         {
             if (splayerboard[i - 1, j - 1] == "W")
