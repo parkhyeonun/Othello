@@ -159,7 +159,6 @@ namespace Othello
                     {
                         splayerboard[x - 1, y - 1] = Convert.ToString(bch.count);
                     }
-                       
                     break;
 
                 case "LEFT":
