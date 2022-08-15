@@ -15,7 +15,7 @@ namespace Othello
         public String voctor;
         public int count = 0;
 
-        public void init( int x , int y , int count ,String voctor)
+        public void init( int y , int x , int count ,String voctor)
         {
             this.x = x;
             this.y = y;

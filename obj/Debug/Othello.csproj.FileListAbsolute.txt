@@ -5,3 +5,10 @@ C:\Users\admin\Desktop\Othello\Othello\obj\Debug\Othello.csproj.AssemblyReferenc
 C:\Users\admin\Desktop\Othello\Othello\obj\Debug\Othello.csproj.CoreCompileInputs.cache
 C:\Users\admin\Desktop\Othello\Othello\obj\Debug\Othello.exe
 C:\Users\admin\Desktop\Othello\Othello\obj\Debug\Othello.pdb
+C:\Users\pc\Desktop\Study\Othello\bin\Debug\Othello.exe.config
+C:\Users\pc\Desktop\Study\Othello\bin\Debug\Othello.exe
+C:\Users\pc\Desktop\Study\Othello\bin\Debug\Othello.pdb
+C:\Users\pc\Desktop\Study\Othello\obj\Debug\Othello.csproj.AssemblyReference.cache
+C:\Users\pc\Desktop\Study\Othello\obj\Debug\Othello.csproj.CoreCompileInputs.cache
+C:\Users\pc\Desktop\Study\Othello\obj\Debug\Othello.exe
+C:\Users\pc\Desktop\Study\Othello\obj\Debug\Othello.pdb

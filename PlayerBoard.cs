@@ -9,9 +9,6 @@ namespace Othello
     class PlayerBoard
     {
         public String[,] splayerboard = new String[8, 8];
-        bool[] visited = new bool[8];
-        List<int> listIntX = new List<int>();
-        List<int> listIntY = new List<int>();
         Stack<BoardCheck> stackBoardChecks = new Stack<BoardCheck>();
 
         //사람이 보는 것
@@ -36,16 +33,17 @@ namespace Othello
             }
 
             splayerboard[3, 3] = "B";
-            splayerboard[4, 3] = "B";
             splayerboard[3, 4] = "W";
-            splayerboard[4, 4] = "W";
+            splayerboard[4, 3] = "W";
+            splayerboard[4, 4] = "B";
 
         }
+
 
         //컴퓨터가 수를 두었을때 내 보드 업데이트 
 
         //둘 수 있는 곳 셋팅
-        public void SettingBoard(int num)
+        public void SettingBoard()
         { 
 
             for (int i = 0; i < 8; i++)
@@ -63,7 +61,7 @@ namespace Othello
             {                
                 BoardCheck bc;
                 bc = stackBoardChecks.Pop();
-                GoBoardCheck(bc.x, bc.y, bc);
+                GoBoardCheck(bc.y, bc.x, bc);
             }
 
             System.Console.WriteLine("TEST");
@@ -71,125 +69,406 @@ namespace Othello
         }
 
         //스택 쌓기 
-        void CreateBoardCheck(int x , int y)
+        void CreateBoardCheck(int y , int x )
         {
-            if (splayerboard[x - 1, y - 1] == "W")
+            if (splayerboard[y - 1, x - 1] == "W")
             {
                 //↖ 
                 BoardCheck bc = new BoardCheck();
-                bc.init(x - 1, y - 1, 1, "LEFT_UP");
+                bc.init(y - 1, x - 1, 1, "LEFT_UP");
                 stackBoardChecks.Push(bc);
             }
-            if (splayerboard[x, y - 1] == "W")
+            if (splayerboard[y, x - 1] == "W")
             {
                 //←
                 BoardCheck bc = new BoardCheck();
-                bc.init(x, y - 1, 1, "LEFT");
+                bc.init(y, x - 1, 1, "LEFT");
                 stackBoardChecks.Push(bc);
 
             }
-            if (splayerboard[x + 1, y - 1] == "W")
+            if (splayerboard[y + 1, x - 1] == "W")
             {
                 //↙
                 BoardCheck bc = new BoardCheck();
-                bc.init(x, y - 1, 1, "LEFT_DOWN");
+                bc.init(y + 1, x - 1, 1, "LEFT_DOWN");
                 stackBoardChecks.Push(bc);
             }
-            if (splayerboard[x - 1, y] == "W")
+            if (splayerboard[y - 1, x] == "W")
             {
                 //↑
                 BoardCheck bc = new BoardCheck();
-                bc.init(x, y - 1, 1, "UP");
+                bc.init(y - 1, x, 1, "UP");
                 stackBoardChecks.Push(bc);
 
             }
-            if (splayerboard[x + 1, y] == "W")
+            if (splayerboard[y + 1, x] == "W")
             {
                 //↓
                 BoardCheck bc = new BoardCheck();
-                bc.init(x, y - 1, 1, "DOWN");
+                bc.init(y + 1, x, 1, "DOWN");
                 stackBoardChecks.Push(bc);
 
             }
-            if (splayerboard[x - 1, y + 1] == "W")
+            if (splayerboard[y - 1, x + 1] == "W")
             {
                 //↗
                 BoardCheck bc = new BoardCheck();
-                bc.init(x, y - 1, 1, "RIGHT_UP");
+                bc.init(y - 1, x + 1, 1, "RIGHT_UP");
                 stackBoardChecks.Push(bc);
 
             }
-            if (splayerboard[x, y + 1] == "W")
+            if (splayerboard[y, x + 1] == "W")
             {
                 //→
                 BoardCheck bc = new BoardCheck();
-                bc.init(x, y - 1, 1, "RIGHT");
+                bc.init(y, x + 1, 1, "RIGHT");
                 stackBoardChecks.Push(bc);
 
             }
-            if (splayerboard[x + 1, y + 1] == "W")
+            if (splayerboard[y + 1, x + 1] == "W")
             {
                 //↘
                 BoardCheck bc = new BoardCheck();
-                bc.init(x, y - 1, 1, "RIGHT_DOWN");
+                bc.init(y + 1, x + 1, 1, "RIGHT_DOWN");
                 stackBoardChecks.Push(bc);
 
             }
         }
 
+
+
         //정해진 방향에 하얀돌이 있는가?
-        public void GoBoardCheck(int x , int y , BoardCheck bch)
+        public void GoBoardCheck(int y , int x , BoardCheck bch)
         {
             switch (bch.voctor)
             {
                 case "LEFT_UP" :
 
-                    if (splayerboard[x - 1, y - 1] == "W")
+                    if (splayerboard[y - 1, x - 1] == "W")
                     {
                         //↖ 
                         BoardCheck bc = new BoardCheck();
-                        bc.init(x - 1, y - 1, bc.count++, "LEFT_UP");
+                        bc.init(y - 1, x - 1, bc.count++, "LEFT_UP");
                         stackBoardChecks.Push(bc);
                     }
-                    else if(splayerboard[x - 1, y - 1] == "B")
+                    else if(splayerboard[y - 1, x - 1] == "B")
                     {
                         break;
                     }
                     else
                     {
-                        splayerboard[x - 1, y - 1] = Convert.ToString(bch.count);
+                        splayerboard[y - 1, x - 1] = Convert.ToString(bch.count);
                     }
                     break;
 
                 case "LEFT":
+                    if (splayerboard[y, x - 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y, x - 1, bc.count++, "LEFT");
+                        stackBoardChecks.Push(bc);
+                    }
+                    else if (splayerboard[y, x - 1] == "B")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        splayerboard[y, x - 1] = Convert.ToString(bch.count);
+                    }
                     break;
 
                 case "LEFT_DOWN":
+                    if (splayerboard[y + 1, x - 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y + 1, x - 1, bc.count++, "LEFT_DOWN");
+                        stackBoardChecks.Push(bc);
+                    }
+                    else if (splayerboard[y + 1, x - 1] == "B")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        splayerboard[y + 1, x - 1] = Convert.ToString(bch.count);
+                    }
                     break;
 
                 case "UP":
+                    if (splayerboard[y - 1, x] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y - 1, x, bc.count++, "UP");
+                        stackBoardChecks.Push(bc);
+                    }
+                    else if (splayerboard[y - 1, x] == "B")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        splayerboard[y - 1, x] = Convert.ToString(bch.count);
+                    }
                     break;
 
                 case "DOWN":
+                    if (splayerboard[y + 1, x] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y + 1, x, bc.count++, "DOWN");
+                        stackBoardChecks.Push(bc);
+                    }
+                    else if (splayerboard[y + 1, x] == "B")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        splayerboard[y + 1, x] = Convert.ToString(bch.count);
+                    }
                     break;
 
                 case "RIGHT_UP":
+                    if (splayerboard[y - 1, x + 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y - 1, x + 1, bc.count++, "RIGHT_UP");
+                        stackBoardChecks.Push(bc);
+                    }
+                    else if (splayerboard[y - 1, x + 1] == "B")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        splayerboard[y - 1, x + 1] = Convert.ToString(bch.count);
+                    }
                     break;
 
                 case "RIGHT":
+                    if (splayerboard[y, x + 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y, x - 1, bc.count++, "RIGHT");
+                        stackBoardChecks.Push(bc);
+                    }
+                    else if (splayerboard[y, x + 1] == "B")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        splayerboard[y, x + 1] = Convert.ToString(bch.count);
+                    }
                     break;
 
                 case "RIGHT_DOWN":
+                    if (splayerboard[y + 1, x + 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y + 1, x + 1, bc.count++, "RIGHT_DOWN");
+                        stackBoardChecks.Push(bc);
+                    }
+                    else if (splayerboard[y + 1, x + 1] == "B")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        splayerboard[y + 1, x + 1] = Convert.ToString(bch.count);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+
+
+        public void ReverseStone(int y, int x)
+        {
+            if (splayerboard[y - 1, x - 1] == "W")
+            {
+                //↖ 
+                BoardCheck bc = new BoardCheck();
+                bc.init(y - 1, x - 1, 1, "LEFT_UP");
+                stackBoardChecks.Push(bc);
+            }
+            if (splayerboard[y, x - 1] == "W")
+            {
+                //←
+                BoardCheck bc = new BoardCheck();
+                bc.init(y, x - 1, 1, "LEFT");
+                stackBoardChecks.Push(bc);
+
+            }
+            if (splayerboard[y + 1, x - 1] == "W")
+            {
+                //↙
+                BoardCheck bc = new BoardCheck();
+                bc.init(y + 1, x - 1, 1, "LEFT_DOWN");
+                stackBoardChecks.Push(bc);
+            }
+            if (splayerboard[y - 1, x] == "W")
+            {
+                //↑
+                BoardCheck bc = new BoardCheck();
+                bc.init(y - 1, x, 1, "UP");
+                stackBoardChecks.Push(bc);
+
+            }
+            if (splayerboard[y + 1, x] == "W")
+            {
+                //↓
+                BoardCheck bc = new BoardCheck();
+                bc.init(y + 1, x, 1, "DOWN");
+                stackBoardChecks.Push(bc);
+
+            }
+            if (splayerboard[y - 1, x + 1] == "W")
+            {
+                //↗
+                BoardCheck bc = new BoardCheck();
+                bc.init(y - 1, x + 1, 1, "RIGHT_UP");
+                stackBoardChecks.Push(bc);
+
+            }
+            if (splayerboard[y, x + 1] == "W")
+            {
+                //→
+                BoardCheck bc = new BoardCheck();
+                bc.init(y, x + 1, 1, "RIGHT");
+                stackBoardChecks.Push(bc);
+
+            }
+            if (splayerboard[y + 1, x + 1] == "W")
+            {
+                //↘
+                BoardCheck bc = new BoardCheck();
+                bc.init(y + 1, x + 1, 1, "RIGHT_DOWN");
+                stackBoardChecks.Push(bc);
+
+            }
+
+
+            while (stackBoardChecks.Count > 0)
+            {
+                BoardCheck bc;
+                bc = stackBoardChecks.Pop();
+                GoReversCheck(bc.y, bc.x, bc);
+            }
+
+        }
+
+        public void GoReversCheck(int y, int x, BoardCheck bch)
+        {
+            splayerboard[y, x] = "B";
+
+            switch (bch.voctor)
+            {
+                case "LEFT_UP":
+
+                    if (splayerboard[y - 1, x - 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y - 1, x - 1, bc.count++, "LEFT_UP");
+                        splayerboard[y, x] = "B";
+                        stackBoardChecks.Push(bc);
+                    }
+                    break;
+
+                case "LEFT":
+                    
+                    if (splayerboard[y, x - 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y, x - 1, bc.count++, "LEFT");
+                        stackBoardChecks.Push(bc);
+                    }
+                    break;
+
+                case "LEFT_DOWN":
+                    if (splayerboard[y + 1, x - 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y + 1, x - 1, bc.count++, "LEFT_DOWN");
+                        splayerboard[y, x] = "B";
+                        stackBoardChecks.Push(bc);
+                    }
+                    break;
+
+                case "UP":
+                    if (splayerboard[y - 1, x] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y - 1, x, bc.count++, "UP");
+                        splayerboard[y, x] = "B";
+                        stackBoardChecks.Push(bc);
+                    }
+                    break;
+
+                case "DOWN":
+                    if (splayerboard[y + 1, x] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y + 1, x, bc.count++, "DOWN");
+                        splayerboard[y, x] = "B";
+                        stackBoardChecks.Push(bc);
+                    }
+                    break;
+
+                case "RIGHT_UP":
+                    if (splayerboard[y - 1, x + 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y - 1, x + 1, bc.count++, "RIGHT_UP");
+                        splayerboard[y, x] = "B";
+                        stackBoardChecks.Push(bc);
+                    }
+                    break;
+
+                case "RIGHT":
+                    if (splayerboard[y, x + 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y, x - 1, bc.count++, "RIGHT");
+                        splayerboard[y, x] = "B";
+                        stackBoardChecks.Push(bc);
+                    }
+                    break;
+
+                case "RIGHT_DOWN":
+                    if (splayerboard[y + 1, x + 1] == "W")
+                    {
+                        //↖ 
+                        BoardCheck bc = new BoardCheck();
+                        bc.init(y + 1, x + 1, bc.count++, "RIGHT_DOWN");
+                        splayerboard[y, x] = "B";
+                        stackBoardChecks.Push(bc);
+                    }
                     break;
 
                 default:
                     break;
             }
         }
-
-
-
-
         //돌이 뒤집어짐
 
         //get , set

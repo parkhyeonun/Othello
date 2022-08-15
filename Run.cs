@@ -29,37 +29,61 @@ namespace Othello
             computer.Setborder(false);  
 
             //판을 그려준다(Player 기준?).  - while 
-            //whlie(true)
-            draw.DrawBoard(playerboard);
+            while(true)
+            { 
+                draw.DrawBoard(playerboard);
 
-            //선인 사람 돌 두기
-            if (player.Getborder())
-            {
-                //player 
-                playerboard.SettingBoard(0);
-                //둘 곳이 있는지 없는지 확인(없으면 차례를 넘김)
-                //readLine - 좌표값 입력 
+                //선인 사람 돌 두기
+                if (player.Getborder())
+                {
+                    //player 
+                    playerboard.SettingBoard();
+                
+                    //둘 곳이 있는지 없는지 확인(없으면 차례를 넘김)
+                    if(player.IsCheckPutStone(playerboard))
+                    {
+                        //readLine - 좌표값 입력(돌을 둘수 없는 곳이면 재입력) 
+                        player.PutStone(playerboard);
+                    }
+                    //보드판을 뒤집음 
+                    playerboard.ReverseStone(int.Parse(player.putXY.Substring(0, 1)), int.Parse(player.putXY.Substring(1, 1)));
+                    //컴퓨터 보드 업데이트
+                    computerboard.ComputerBoardUpdqte(playerboard);
+                    //내 차례는 끝났어
+                    player.TrunEnd();
+                    //컴퓨터 차례야
+                    player.YourTrun(computer);
+                }
+                else if(computer.Getborder())
+                {
+                    //computer
+                    computerboard.SettingBoard();
 
-                player.YourTrun(computer);
+                    //둘 곳이 있는지 없는지 확인(없으면 차례를 넘김)
+                    if (player.IsCheckPutStone(playerboard))
+                    {
+                        //점수 높은 곳만 두자! (탐욕의 오델로)
+                        player.PutStone(playerboard);
+                    }
+                   
+
+
+                    computer.TrunEnd();
+                    computer.YourTrun(player);
+
+
+                }
+                else
+                {
+                    System.Console.WriteLine("이 문구가 뜬다면 무엇인가 잘못된겁니다.");
+                }
+
+                //더이상 둘 곳이 없는지 판단하기 - Loop
+                //종료시 스코어 계산 승퍠 가리기
+                System.Console.WriteLine("1111");
             }
-            else if(computer.Getborder())
-            {
-                //computer
-                //둘 곳이 있는지 없는지 확인(없으면 차례를 넘김)
-                //점수 높은 곳만 두자! (탐욕의 오델로)
-
-                computer.YourTrun(player);
-            }
-            else
-            {
-                System.Console.WriteLine("이 문구가 뜬다면 무엇인가 잘못된겁니다.");
-            }
-
-            //더이상 둘 곳이 없는지 판단하기 - Loop
-            //종료시 스코어 계산 승퍠 가리기
 
 
-            System.Console.WriteLine("1111");
         }
 
         
