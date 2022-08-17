@@ -29,11 +29,11 @@ namespace Othello
         public void PutStone(PlayerBoard pb)
         {
             
-            System.Console.Write("돌을 둘 곳 : xy "); putXY = System.Console.ReadLine();
+            System.Console.Write("돌을 둘 곳 : yx "); putXY = System.Console.ReadLine();
             
             while (IsCheckPlayerBoard(int.Parse(putXY.Substring(0, 1)) , int.Parse(putXY.Substring(1, 1)) , pb))
             {
-                System.Console.Write("그곳은 둘 수 없습니다. 다시 입력해주세요. : xy "); putXY = System.Console.ReadLine();
+                System.Console.Write("그곳은 둘 수 없습니다. 다시 입력해주세요. : yx "); putXY = System.Console.ReadLine();
             }
 
             pb.splayerboard[int.Parse(putXY.Substring(0, 1)), int.Parse(putXY.Substring(1, 1))] = "B";

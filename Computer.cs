@@ -10,6 +10,10 @@ namespace Othello
     {
         //선공 후공
         bool border = true; // border : true , border : false 차례
+        public int intScore = 0;    // 현재스코어
+        public int intMaxScore = 0; // 최대스코어 
+        public int intMaxY = 0;     // 최대값 Y
+        public int intMaxX = 0;     // 최대값 X
 
         //내 차례는 끝났어 
         public void TrunEnd()
@@ -41,18 +45,37 @@ namespace Othello
 
 
         //돌을 두다
-        public void PutStone(PlayerBoard pb)
+        public void PutStone(ComputerBoard cb)
         {
-            /*
-            System.Console.Write("돌을 둘 곳 : xy "); putXY = System.Console.ReadLine();
-            
-            while (IsCheckPlayerBoard(int.Parse(putXY.Substring(0, 1)), int.Parse(putXY.Substring(1, 1)), pb))
+            //"W" , "B"
+            intMaxScore = 0;
+
+            for (int y = 0; y < 8; y++)
             {
-                System.Console.Write("그곳은 둘 수 없습니다. 다시 입력해주세요. : xy "); putXY = System.Console.ReadLine();
+
+                for (int x = 0; x < 8; x++)
+                {
+
+                    if (cb.splayerboard[y, x] == "W" || cb.splayerboard[y, x] == "B")
+                    {
+                        intScore = 0;
+                    }
+                    else
+                    {
+                        intScore = int.Parse(cb.splayerboard[y, x]);
+                    }
+
+                    if (intMaxScore < intScore)
+                    {
+                        intMaxScore = intScore;
+                        intMaxY = y;
+                        intMaxX = x;
+                    }
+
+                }
             }
-            
-            pb.splayerboard[int.Parse(putXY.Substring(0, 1)), int.Parse(putXY.Substring(1, 1))] = "B";
-            */
+
+            cb.splayerboard[intMaxY, intMaxX] = "W";
 
         }
 

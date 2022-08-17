@@ -53,6 +53,7 @@ namespace Othello
                     player.TrunEnd();
                     //컴퓨터 차례야
                     player.YourTrun(computer);
+                    playerboard.ReSetBoardList();
                 }
                 else if(computer.Getborder())
                 {
@@ -60,17 +61,19 @@ namespace Othello
                     computerboard.SettingBoard();
 
                     //둘 곳이 있는지 없는지 확인(없으면 차례를 넘김)
-                    if (player.IsCheckPutStone(playerboard))
+                    if (computer.IsCheckPutStone(computerboard))
                     {
                         //점수 높은 곳만 두자! (탐욕의 오델로)
-                        player.PutStone(playerboard);
+                        computer.PutStone(computerboard);
                     }
-                   
-
+                    //보드판을 뒤집음 
+                    computerboard.ReverseStone( computer.intMaxY , computer.intMaxX );
+                    //컴퓨터 보드 업데이트
+                    playerboard.PlayerBoardUpdqte(computerboard);
 
                     computer.TrunEnd();
                     computer.YourTrun(player);
-
+                    computerboard.ReSetBoardList();
 
                 }
                 else
