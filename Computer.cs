@@ -75,6 +75,7 @@ namespace Othello
                 }
             }
 
+            System.Console.WriteLine("Computer : {0},{1}" ,intMaxY, intMaxX);
             cb.splayerboard[intMaxY, intMaxX] = "W";
 
         }

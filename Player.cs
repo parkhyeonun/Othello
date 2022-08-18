@@ -36,6 +36,7 @@ namespace Othello
                 System.Console.Write("그곳은 둘 수 없습니다. 다시 입력해주세요. : yx "); putXY = System.Console.ReadLine();
             }
 
+            System.Console.WriteLine("Computer : {0},{1}", putXY.Substring(0, 1), putXY.Substring(1, 1) );
             pb.splayerboard[int.Parse(putXY.Substring(0, 1)), int.Parse(putXY.Substring(1, 1))] = "B";
 
         }

@@ -91,8 +91,6 @@ namespace Othello
                 GoBoardCheck(bc.y, bc.x, bc);
             }
 
-            System.Console.WriteLine("TEST");
-
         }
 
         //스택 쌓기 
@@ -345,7 +343,7 @@ namespace Othello
                         {
                             //→ 
                             BoardCheck bc = new BoardCheck();
-                            bc.init(y, x - 1, bch.count + 1, "RIGHT");
+                            bc.init(y, x + 1, bch.count + 1, "RIGHT");
                             stackBoardChecks.Push(bc);
                         }
                         else if (splayerboard[y, x + 1] == "B")
@@ -531,10 +529,13 @@ namespace Othello
                         }
                         else if (splayerboard[y - 1, x - 1] == "B")
                         {
+                            System.Console.Write("Player LEFT_UP ");
                             for (int i = 0; i < ListLeftUpBoard.Count; i++)
                             {
                                 splayerboard[ListLeftUpBoard[i].y, ListLeftUpBoard[i].x] = "B";
+                                System.Console.Write(" ({0},{1}) ", ListLeftUpBoard[i].y, ListLeftUpBoard[i].x);
                             }
+                            System.Console.WriteLine();
                         }
                     }
                     break;
@@ -553,10 +554,13 @@ namespace Othello
                         }
                         else if (splayerboard[y, x - 1] == "B")
                         {
+                            System.Console.Write("Player LEFT ");
                             for (int i = 0; i < ListLeftBoard.Count; i++)
                             {
                                 splayerboard[ListLeftBoard[i].y, ListLeftBoard[i].x] = "B";
+                                System.Console.Write(" ({0},{1}) ", ListLeftBoard[i].y, ListLeftBoard[i].x);
                             }
+                            System.Console.WriteLine();
                         }
 
                     }
@@ -576,10 +580,13 @@ namespace Othello
                         }
                         else if (splayerboard[y + 1, x - 1] == "B")
                         {
+                            System.Console.Write("Player LEFT_DOWN ");
                             for (int i = 0; i < ListLeftDownBoard.Count; i++)
                             {
                                 splayerboard[ListLeftDownBoard[i].y, ListLeftDownBoard[i].x] = "B";
+                                System.Console.Write(" ({0},{1}) ", ListLeftDownBoard[i].y, ListLeftDownBoard[i].x);
                             }
+                            System.Console.WriteLine();
                         }
 
                     }
@@ -599,10 +606,13 @@ namespace Othello
                         }
                         else if (splayerboard[y - 1, x] == "B")
                         {
+                            System.Console.Write("Player UP ");
                             for (int i = 0; i < ListUpBoard.Count; i++)
                             {
                                 splayerboard[ListUpBoard[i].y, ListUpBoard[i].x] = "B";
+                                System.Console.Write(" ({0},{1}) ", ListUpBoard[i].y, ListUpBoard[i].x);
                             }
+                            System.Console.WriteLine();
                         }
 
                     }
@@ -622,10 +632,13 @@ namespace Othello
                         }
                         else if (splayerboard[y + 1, x] == "B")
                         {
+                            System.Console.Write("Player DOWN ");
                             for (int i = 0; i < ListDownBoard.Count; i++)
                             {
                                 splayerboard[ListDownBoard[i].y, ListDownBoard[i].x] = "B";
+                                System.Console.Write(" ({0},{1}) ", ListDownBoard[i].y, ListDownBoard[i].x);
                             }
+                            System.Console.WriteLine();
                         }
 
                     }
@@ -645,10 +658,13 @@ namespace Othello
                         }
                         else if (splayerboard[y - 1, x + 1] == "B")
                         {
+                            System.Console.Write("Player RIGHT_UP ");
                             for (int i = 0; i < ListRightUpBoard.Count; i++)
                             {
                                 splayerboard[ListRightUpBoard[i].y, ListRightUpBoard[i].x] = "B";
+                                System.Console.Write(" ({0},{1}) ", ListRightUpBoard[i].y, ListRightUpBoard[i].x);
                             }
+                            System.Console.WriteLine();
                         }
 
                     }
@@ -662,16 +678,19 @@ namespace Othello
                         {
                             //→ 
                             BoardCheck bc = new BoardCheck();
-                            bc.init(y, x - 1, bc.count++, "RIGHT");
+                            bc.init(y, x + 1, bc.count++, "RIGHT");
                             ListRightBoard.Add(bc);
                             stackBoardChecks.Push(bc);
                         }
                         else if (splayerboard[y, x + 1] == "B")
                         {
+                            System.Console.Write("Player RIGHT ");
                             for (int i = 0; i < ListRightBoard.Count; i++)
                             {
                                 splayerboard[ListRightBoard[i].y, ListRightBoard[i].x] = "B";
+                                System.Console.Write(" ({0},{1}) ", ListRightBoard[i].y, ListRightBoard[i].x);
                             }
+                            System.Console.WriteLine();
                         }
 
                     }
@@ -679,7 +698,7 @@ namespace Othello
 
                 case "RIGHT_DOWN":
                     
-                    if(y + 1 < 8 || x + 1 < 8)
+                    if(y + 1 < 8 && x + 1 < 8)
                     {
                         if (splayerboard[y + 1, x + 1] == "W")
                         {
@@ -691,10 +710,13 @@ namespace Othello
                         }
                         else if (splayerboard[y + 1, x + 1] == "B")
                         {
+                            System.Console.Write("Player RIGHT_DOWN ");
                             for (int i = 0; i < ListRightDownBoard.Count; i++)
                             {
                                 splayerboard[ListRightDownBoard[i].y, ListRightDownBoard[i].x] = "B";
+                                System.Console.Write(" ({0},{1}) ", ListRightDownBoard[i].y, ListRightDownBoard[i].x);
                             }
+                            System.Console.WriteLine();
                         }
                     }
 
@@ -704,7 +726,11 @@ namespace Othello
                     break;
             }
         }
-        //돌이 뒤집어짐
+        
+        //컴퓨터 판때기 그리기
+
+
+
 
         //get , set
         public void ReSetBoardList()

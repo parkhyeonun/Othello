@@ -13,7 +13,7 @@ namespace Othello
         //시작
         public void StartGame()
         {
-
+            int iSwtich = 0;
             Player player = new Player();
             Computer computer = new Computer();
             PlayerBoard playerboard = new PlayerBoard();
@@ -29,7 +29,7 @@ namespace Othello
             computer.Setborder(false);  
 
             //판을 그려준다(Player 기준?).  - while 
-            while(true)
+            while((iSwtich % 2 == 0) ? true : false)
             { 
                 draw.DrawBoard(playerboard);
 
@@ -38,43 +38,80 @@ namespace Othello
                 {
                     //player 
                     playerboard.SettingBoard();
-                
+                    //디버깅 보드판
+                    //draw.PlayerBoard(playerboard);
                     //둘 곳이 있는지 없는지 확인(없으면 차례를 넘김)
-                    if(player.IsCheckPutStone(playerboard))
+                    if (player.IsCheckPutStone(playerboard))
                     {
                         //readLine - 좌표값 입력(돌을 둘수 없는 곳이면 재입력) 
                         player.PutStone(playerboard);
+                        //iSwtich 2가되면 종료
+                        if (iSwtich - 1 < 0)
+                        {
+                            iSwtich = 0;
+                        }
+                        else
+                        {
+                            iSwtich--;
+                        }
                     }
-                    //보드판을 뒤집음 
-                    playerboard.ReverseStone(int.Parse(player.putXY.Substring(0, 1)), int.Parse(player.putXY.Substring(1, 1)));
-                    //컴퓨터 보드 업데이트
-                    computerboard.ComputerBoardUpdqte(playerboard);
+                    else
+                    {
+                        iSwtich++;
+                    }
+
                     //내 차례는 끝났어
                     player.TrunEnd();
                     //컴퓨터 차례야
                     player.YourTrun(computer);
+
+                    //보드판을 뒤집음 
+                    playerboard.ReverseStone(int.Parse(player.putXY.Substring(0, 1)), int.Parse(player.putXY.Substring(1, 1)));
+
+                    //컴퓨터 보드 업데이트
+                    computerboard.ComputerBoardUpdqte(playerboard);
+               
                     playerboard.ReSetBoardList();
+                    System.Console.WriteLine(iSwtich);
                 }
                 else if(computer.Getborder())
                 {
                     //computer
                     computerboard.SettingBoard();
-
+                    //디버깅 보드판
+                    //draw.ComputerBoard(computerboard);
                     //둘 곳이 있는지 없는지 확인(없으면 차례를 넘김)
                     if (computer.IsCheckPutStone(computerboard))
                     {
                         //점수 높은 곳만 두자! (탐욕의 오델로)
                         computer.PutStone(computerboard);
+                        //2가 되면 종료
+                        if (iSwtich - 1 < 0)
+                        {
+                            iSwtich = 0;
+                        }
+                        else
+                        {
+                            iSwtich--;
+                        }
                     }
+                    else
+                    {
+                        iSwtich++;
+                    }
+                    //컴퓨터차례는 끝났어
+                    computer.TrunEnd();
+                    //사람의 차례야
+                    computer.YourTrun(player);
+
                     //보드판을 뒤집음 
-                    computerboard.ReverseStone( computer.intMaxY , computer.intMaxX );
+                    computerboard.ReverseStone(computer.intMaxY, computer.intMaxX);
+
                     //컴퓨터 보드 업데이트
                     playerboard.PlayerBoardUpdqte(computerboard);
 
-                    computer.TrunEnd();
-                    computer.YourTrun(player);
                     computerboard.ReSetBoardList();
-
+                    System.Console.WriteLine(iSwtich);
                 }
                 else
                 {
@@ -83,7 +120,7 @@ namespace Othello
 
                 //더이상 둘 곳이 없는지 판단하기 - Loop
                 //종료시 스코어 계산 승퍠 가리기
-                System.Console.WriteLine("1111");
+
             }
 
 
